@@ -7,7 +7,7 @@ import robot.system.subsystem.Outtake;
 
 public class Placement implements StateFunction {
     public static void run(IOController ioController) {
-        if (ioController.getGamepadToggle().getToggleState(GamepadToggle.Button.DPAD_UP)) {
+        if (ioController.getCurrentGamepad2().dpad_up && !ioController.getPreviousGamepad2().dpad_up) {
             switch (ioController.getOuttake().getLevel()) {
                 case GROUND:
                     ioController.getOuttake().setToTargetPosition(Outtake.OuttakeLevel.LOW);
@@ -20,7 +20,7 @@ public class Placement implements StateFunction {
             }
         }
 
-        if (ioController.getGamepadToggle().getToggleState(GamepadToggle.Button.DPAD_DOWN)) {
+        if (ioController.getCurrentGamepad2().dpad_down && !ioController.getPreviousGamepad2().dpad_down) {
             switch (ioController.getOuttake().getLevel()) {
                 case GROUND:
                     break;

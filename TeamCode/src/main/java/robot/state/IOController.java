@@ -13,7 +13,6 @@ import robot.system.subsystem.Outtake;
 
 public class IOController {
     public enum State {
-//        BUSY,
         IDLE,
         PICKUP,
         HANDOFF_INITIALIZING,
@@ -30,51 +29,43 @@ public class IOController {
     private Gamepad previousGamepad2 = new Gamepad();
 
     public IOController(Intake intake, Outtake outtake, OpMode opMode) {
-        this.state = State.IDLE;
+        this.state = State.PLACEMENT; // For testing right now
         this.intake = intake;
         this.outtake = outtake;
         this.opMode = opMode;
         this.gamepadToggle = new GamepadToggle(opMode.gamepad2);
     }
 
-    public State getState() {
-        return state;
-    }
+    public State getState() { return state; }
 
-    public void setState(State state) {
-        this.state = state;
-    }
+    public void setState(State state) { this.state = state; }
 
-    public Intake getIntake() {
-        return intake;
-    }
+    public Intake getIntake() { return intake; }
 
-    public Outtake getOuttake() {
-        return outtake;
-    }
+    public Outtake getOuttake() { return outtake; }
 
-    public Gamepad getCurrentGamepad2() {
-        return currentGamepad2;
-    }
+    public Gamepad getCurrentGamepad2() { return currentGamepad2; }
 
-    public Gamepad getPreviousGamepad2() {
-        return previousGamepad2;
-    }
+    public Gamepad getPreviousGamepad2() { return previousGamepad2; }
 
-    public GamepadToggle getGamepadToggle() {
-        return gamepadToggle;
+    public GamepadToggle getGamepadToggle() { return gamepadToggle; }
+
+    public OpMode getOpMode() { return opMode; }
+
+    public boolean isGamepadButtonPressed(boolean current, boolean previous) {
+        return current && !previous;
     }
 
     public void loop() {
-//        try {
-//            previousGamepad2.copy(currentGamepad2);
-//            currentGamepad2.copy(opMode.gamepad2);
-//        } catch (Exception ignored) {}
+        try {
+            previousGamepad2.copy(currentGamepad2);
+            currentGamepad2.copy(opMode.gamepad2);
+        } catch (Exception ignored) {}
 
         // Update toggle states
         gamepadToggle.update();
 
-//        // Example usage of toggle states
+//          // Example usage of toggle states
 //        if (gamepadToggle.getToggleState(GamepadToggle.Button.A)) {
 //            intake.extend();
 //            intake.twistVertical();

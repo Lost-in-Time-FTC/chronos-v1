@@ -61,6 +61,7 @@ public class Hardware {
 
         outtakeL.setDirection(DcMotor.Direction.FORWARD);
         outtakeR.setDirection(DcMotor.Direction.REVERSE);
+        intake.setDirection(DcMotor.Direction.REVERSE);
 
         intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         outtakeR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -73,5 +74,13 @@ public class Hardware {
     public int getOuttakeRotatePosition() {
         // The through-bore encoder for the servos is attached to this motor port
         return outtakeR.getCurrentPosition();
+    }
+
+    public int getIntakeCurrentPosition() {
+        return -intake.getCurrentPosition(); // encoder reads opposite
+    }
+
+    public int getOuttakeCurrentPosition() {
+        return outtakeL.getCurrentPosition();
     }
 }

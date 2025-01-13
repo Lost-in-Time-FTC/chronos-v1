@@ -1,19 +1,19 @@
 package robot.system.subsystem;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import robot.config.Hardware;
 import robot.config.PID;
-import robot.state.IOController;
 import robot.system.System;
 
+@Config
 public class Outtake extends System {
     public enum OuttakeLevel {
         GROUND(0),
-        LOW(50),
-        HIGH(100);
+        LOW(500),
+        HIGH(700); // 1470 is max extension
 
         private final int value;
 
@@ -42,7 +42,11 @@ public class Outtake extends System {
         }
     }
 
-    private PID pid = new PID(0.005, 0, 0);
+    public static double Kp = 0.001;
+    public static double Ki = 0;
+    public static double Kd = 0;
+    private PID pid = new PID(Kp, Ki, Kd);
+    private PID pidRotate = new PID(0.00075, 0, 0);
     private OuttakeLevel level = OuttakeLevel.GROUND;
 
     public Outtake(Hardware hardware, Telemetry telemetry) { super(hardware, telemetry); }
@@ -52,8 +56,9 @@ public class Outtake extends System {
     }
 
     public void setToTargetPosition(OuttakeLevel level) {
+        this.level = level;
         int targetPosition = level.getValue();
-        int currentPosition = hardware.outtakeL.getCurrentPosition();
+        int currentPosition = hardware.getOuttakeCurrentPosition();
         double power = pid.out(targetPosition, currentPosition);
         hardware.outtakeL.setPower(power);
         hardware.outtakeR.setPower(power);
@@ -82,32 +87,40 @@ public class Outtake extends System {
     public void rotate(OuttakeRotate position) {
         int targetPosition = position.getValue();
         int currentPosition = hardware.getOuttakeRotatePosition();
-        double power = pid.out(targetPosition, currentPosition);
+        double power = pidRotate.out(targetPosition, currentPosition);
         hardware.outtakeRotateR.setPower(power);
-        hardware.outtakeRotateL.setPower(power);
+//        hardware.outtakeRotateL.setPower(power);
+
+//        if (hardware.getOuttakeRotatePosition() == position.getValue()) {
+//            hardware.outtakeRotateR.setPower(0);
+//        } else if (hardware.getOuttakeRotatePosition() < position.getValue()) {
+//            hardware.outtakeRotateR.setPower(0.1);
+//        } else {
+//            hardware.outtakeRotateR.setPower(-0.1);
+//        }
     }
 
     public boolean isRotateTransferPosition() {
-        return hardware.outtakeR.getCurrentPosition() == OuttakeRotate.TRANSFER.getValue();
+        return hardware.getOuttakeRotatePosition() == OuttakeRotate.TRANSFER.getValue();
     }
 
     public boolean isRotateSubmersiblePosition() {
-        return hardware.outtakeR.getCurrentPosition() == OuttakeRotate.SUBMERSIBLE.getValue();
+        return hardware.getOuttakeRotatePosition() == OuttakeRotate.SUBMERSIBLE.getValue();
     }
 
     public boolean isRotateWallPosition() {
-        return hardware.outtakeR.getCurrentPosition() == OuttakeRotate.WALL.getValue();
+        return hardware.getOuttakeRotatePosition() == OuttakeRotate.WALL.getValue();
     }
 
     public void linkageForward() {
-        double targetPosition = 0.75;
+        double targetPosition = 0.5;
         hardware.linkageL.setPosition(targetPosition);
-        hardware.linkageR.setPosition(targetPosition);
+//        hardware.linkageR.setPosition(targetPosition);
     }
 
     public void linkageBackward() {
-        double targetPosition = 0;
-        hardware.linkageL.setPosition(targetPosition);
+        double targetPosition = 0.5;
+//        hardware.linkageL.setPosition(targetPosition);
         hardware.linkageR.setPosition(targetPosition);
     }
 }
