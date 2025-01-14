@@ -7,13 +7,15 @@ import robot.system.subsystem.Outtake;
 
 public class Placement implements StateFunction {
     public static void run(IOController ioController) {
+        ioController.getOuttake().setToTargetPosition(ioController.getOuttake().getLevel());
+
         if (ioController.getCurrentGamepad2().dpad_up && !ioController.getPreviousGamepad2().dpad_up) {
             switch (ioController.getOuttake().getLevel()) {
                 case GROUND:
-                    ioController.getOuttake().setToTargetPosition(Outtake.OuttakeLevel.LOW);
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW);
                     break;
                 case LOW:
-                    ioController.getOuttake().setToTargetPosition(Outtake.OuttakeLevel.HIGH);
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.HIGH);
                     break;
                 case HIGH:
                     break;
@@ -25,10 +27,10 @@ public class Placement implements StateFunction {
                 case GROUND:
                     break;
                 case LOW:
-                    ioController.getOuttake().setToTargetPosition(Outtake.OuttakeLevel.GROUND);
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.GROUND);
                     break;
                 case HIGH:
-                    ioController.getOuttake().setToTargetPosition(Outtake.OuttakeLevel.LOW);
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW);
                     break;
             }
         }

@@ -11,9 +11,9 @@ import robot.system.System;
 @Config
 public class Outtake extends System {
     public enum OuttakeLevel {
-        GROUND(0),
-        LOW(500),
-        HIGH(700); // 1470 is max extension
+        GROUND(-20),
+        LOW(1000),
+        HIGH(1470); // 1470 is max extension
 
         private final int value;
 
@@ -42,7 +42,7 @@ public class Outtake extends System {
         }
     }
 
-    public static double Kp = 0.001;
+    public static double Kp = 0.0075;
     public static double Ki = 0;
     public static double Kd = 0;
     private PID pid = new PID(Kp, Ki, Kd);
@@ -54,6 +54,8 @@ public class Outtake extends System {
     public OuttakeLevel getLevel() {
         return level;
     }
+
+    public void setLevel(OuttakeLevel level) { this.level = level; }
 
     public void setToTargetPosition(OuttakeLevel level) {
         this.level = level;
