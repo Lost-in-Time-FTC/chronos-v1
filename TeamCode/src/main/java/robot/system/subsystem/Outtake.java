@@ -31,7 +31,7 @@ public class Outtake extends System {
 
     public enum OuttakeRotate {
         TRANSFER(0),
-        SUBMERSIBLE(-1300),
+        SUBMERSIBLE(-1200), //-1300
         SUBMERSIBLE_RIGHT(-1450),
         WALL(2125);
 
