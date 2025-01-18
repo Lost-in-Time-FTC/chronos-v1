@@ -31,8 +31,8 @@ public class Outtake extends System {
 
     public enum OuttakeRotate {
         TRANSFER(0),
-        SUBMERSIBLE(-1200), //-1300
-        SUBMERSIBLE_RIGHT(-1450),
+        SUBMERSIBLE(-1150), //-1300
+        SUBMERSIBLE_RIGHT(-1150),
         WALL(2125);
 
         private final int value;
@@ -105,12 +105,12 @@ public class Outtake extends System {
     }
 
     public void twistHorizontal() {
-        double targetPosition = 0.35;
+        double targetPosition = 0.3; //0.35;
         hardware.outtakeTwist.setPosition(targetPosition);
     }
 
     public void twistInverseHorizontal() {
-        double targetPosition = 1; // servo box faces up at transfer
+        double targetPosition = 0.98; // servo box faces up at transfer
         hardware.outtakeTwist.setPosition(targetPosition);
     }
 

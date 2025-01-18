@@ -11,6 +11,7 @@ import robot.system.subsystem.Outtake;
 
 public class RungPlacement implements StateFunction {
     public static void run(IOController ioController) {
+        ioController.getIntake().rotateUp();
         ioController.getOuttake().setToTargetPosition(ioController.getOuttake().getLevel()); // loops
         ioController.getOuttake().rotate(ioController.getOuttake().getRotatePosition());
 

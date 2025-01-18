@@ -76,8 +76,8 @@ public class AutoRight extends OpMode {
                 break;
 
             case 2:
-                hardware.moveBackward(0.5);
-                if (timer.seconds() > 2.0) {
+                hardware.moveBackward(0.25);
+                if (timer.seconds() > 0.5) {
                     hardware.stopDrive();
                     timer.reset();
                     autoState++;
@@ -85,13 +85,23 @@ public class AutoRight extends OpMode {
                 break;
 
             case 3:
-                if (timer.seconds() < 2.0) {
-                    break;
+//                if (timer.seconds() < 2.0) {
+//                    break;
+//                }
+
+                hardware.strafeRight(0.75);
+
+                if (timer.seconds() > 3.0) {
+                    hardware.stopDrive();
+                    timer.reset();
+                    autoState++;
                 }
+                break;
 
-                hardware.strafeRight(0.5);
+            case 4:
+                hardware.moveBackward(0.5);
 
-                if (timer.seconds() > 4.0) {
+                if (timer.seconds() > 1.0) {
                     hardware.stopDrive();
                     timer.reset();
                     autoState++;
