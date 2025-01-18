@@ -14,7 +14,7 @@ public class HandoffInitializing implements StateFunction {
         ioController.getOuttake().twistHorizontal();
         ioController.getOuttake().rotate(Outtake.OuttakeRotate.TRANSFER);
 
-        if (ioController.getOuttake().isRotateTransferPosition()) {
+        if (ioController.getOuttake().isRotated()) {
             ioController.setState(IOController.State.HANDOFF_READY);
         }
     }

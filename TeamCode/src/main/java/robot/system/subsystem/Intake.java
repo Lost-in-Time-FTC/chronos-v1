@@ -31,25 +31,16 @@ public class Intake extends System {
         int currentPosition = hardware.getIntakeCurrentPosition();
         double power = pid.out(targetPosition, currentPosition);
         hardware.intake.setPower(power);
-
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-
-        // Schedule to run after 2 seconds
-        scheduler.schedule(() -> {
-            hardware.intake.setPower(-0.25);
-        }, 1, TimeUnit.SECONDS);
-
-        scheduler.shutdown();
     }
 
     public boolean isExtended() {
         int targetPosition = 120;
-        return hardware.getIntakeCurrentPosition() >= targetPosition - 5;
+        return Math.abs(targetPosition - hardware.getIntakeCurrentPosition()) < 5;
     }
 
     public boolean isRetracted() {
-        int zeroPositionThreshold = -20;
-        return hardware.getIntakeCurrentPosition() <= zeroPositionThreshold + 5;
+        int zeroPositionThreshold = -10;
+        return Math.abs(zeroPositionThreshold - hardware.getIntakeCurrentPosition()) < 5;
     }
 
     public void pincerOpen() {
@@ -75,7 +66,7 @@ public class Intake extends System {
     public void rotateUp() {
         if (isRotateUp) { return; }
 
-        int powerMilliSeconds = 1500;
+        int powerMilliSeconds = 750;
 
         hardware.intakeRotateL.setPower(1);
         hardware.intakeRotateR.setPower(-1);
@@ -96,7 +87,7 @@ public class Intake extends System {
     public void rotateDown() {
         if (isRotateDown) { return;}
 
-        int powerMilliSeconds = 1500;
+        int powerMilliSeconds = 750;
 
         hardware.intakeRotateL.setPower(-1);
         hardware.intakeRotateR.setPower(1);

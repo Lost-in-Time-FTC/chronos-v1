@@ -2,11 +2,10 @@ package robot.config;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,8 +58,8 @@ public class Hardware {
         fL.setDirection(DcMotor.Direction.FORWARD);
         fR.setDirection(DcMotor.Direction.REVERSE);
 
-        outtakeL.setDirection(DcMotor.Direction.FORWARD);
-        outtakeR.setDirection(DcMotor.Direction.REVERSE);
+        outtakeL.setDirection(DcMotor.Direction.REVERSE);
+        outtakeR.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.REVERSE);
 
         intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -82,5 +81,54 @@ public class Hardware {
 
     public int getOuttakeCurrentPosition() {
         return outtakeL.getCurrentPosition();
+    }
+
+    public void moveForward(double power) {
+        bL.setPower(power);
+        bR.setPower(power);
+        fL.setPower(power);
+        fR.setPower(power);
+    }
+
+    public void moveBackward(double power) {
+        bL.setPower(-power);
+        bR.setPower(-power);
+        fL.setPower(-power);
+        fR.setPower(-power);
+    }
+
+    public void strafeLeft(double power) {
+        bL.setPower(power);
+        bR.setPower(-power);
+        fL.setPower(power);
+        fR.setPower(-power);
+    }
+
+    public void strafeRight(double power) {
+        bL.setPower(-power);
+        bR.setPower(power);
+        fL.setPower(-power);
+        fR.setPower(power);
+    }
+
+    public final void rotateLeft(double power) {
+        bL.setPower(-power);
+        bR.setPower(power);
+        fL.setPower(-power);
+        fR.setPower(power);
+    }
+
+    public final void rotateRight(double power) {
+        fR.setPower(-power);
+        bR.setPower(-power);
+        fL.setPower(power);
+        bL.setPower(power);
+    }
+
+    public final void stopDrive() {
+        fR.setPower(0);
+        bR.setPower(0);
+        fL.setPower(0);
+        bL.setPower(0);
     }
 }

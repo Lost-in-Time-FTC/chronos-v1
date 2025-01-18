@@ -1,23 +1,22 @@
 package robot.state.function;
 
-import robot.state.GamepadToggle;
 import robot.state.IOController;
 import robot.state.StateFunction;
 import robot.system.subsystem.Outtake;
 
-public class Placement implements StateFunction {
+public class BucketPlacement implements StateFunction {
     public static void run(IOController ioController) {
         ioController.getOuttake().setToTargetPosition(ioController.getOuttake().getLevel());
 
         if (ioController.getCurrentGamepad2().dpad_up && !ioController.getPreviousGamepad2().dpad_up) {
             switch (ioController.getOuttake().getLevel()) {
                 case GROUND:
-                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW);
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW_BASKET);
                     break;
-                case LOW:
-                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.HIGH);
+                case LOW_BASKET:
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.HIGH_BASKET);
                     break;
-                case HIGH:
+                case HIGH_BASKET:
                     break;
             }
         }
@@ -26,11 +25,11 @@ public class Placement implements StateFunction {
             switch (ioController.getOuttake().getLevel()) {
                 case GROUND:
                     break;
-                case LOW:
+                case LOW_BASKET:
                     ioController.getOuttake().setLevel(Outtake.OuttakeLevel.GROUND);
                     break;
-                case HIGH:
-                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW);
+                case HIGH_BASKET:
+                    ioController.getOuttake().setLevel(Outtake.OuttakeLevel.LOW_BASKET);
                     break;
             }
         }

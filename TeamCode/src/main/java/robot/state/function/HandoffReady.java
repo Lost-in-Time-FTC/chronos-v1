@@ -8,6 +8,6 @@ public class HandoffReady implements StateFunction {
     public static void run(IOController ioController) {
         ioController.getOuttake().pincerClose();
         ioController.getIntake().pincerOpen();
-        ioController.setState(IOController.State.PLACEMENT);
+        ioController.setState(IOController.State.BUCKET_PLACEMENT);
     }
 }

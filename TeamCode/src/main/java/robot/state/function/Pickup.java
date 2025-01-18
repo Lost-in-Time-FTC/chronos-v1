@@ -13,11 +13,11 @@ public class Pickup implements StateFunction {
         if (!ioController.getGamepadToggle().getToggleState(GamepadToggle.Button.A)) {
             ioController.getIntake().retract();
 
-            if (ioController.getIntake().isRetracted()) {
-                ioController.setState(IOController.State.HANDOFF_INITIALIZING);
-            }
+//            if (ioController.getIntake().isRetracted()) {
+//                ioController.setState(IOController.State.HANDOFF_INITIALIZING);
+//            }
 
-            return;
+//            return;
         }
 
         if (ioController.getGamepadToggle().getToggleState(GamepadToggle.Button.B)) {

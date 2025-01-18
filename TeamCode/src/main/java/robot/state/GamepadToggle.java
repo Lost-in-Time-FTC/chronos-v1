@@ -41,4 +41,9 @@ public class GamepadToggle {
         }
         previousStates[index] = currentState;
     }
+    public void resetToggle(Button button) {
+        int index = button.ordinal();
+        toggleStates[index] = false;
+        previousStates[index] = false; // Reset the gamepad's "pressed" state
+    }
 }

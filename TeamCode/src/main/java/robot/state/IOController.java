@@ -7,7 +7,8 @@ import robot.state.function.HandoffInitializing;
 import robot.state.function.HandoffReady;
 import robot.state.function.Idle;
 import robot.state.function.Pickup;
-import robot.state.function.Placement;
+import robot.state.function.BucketPlacement;
+import robot.state.function.RungPlacement;
 import robot.system.subsystem.Intake;
 import robot.system.subsystem.Outtake;
 
@@ -17,7 +18,8 @@ public class IOController {
         PICKUP,
         HANDOFF_INITIALIZING,
         HANDOFF_READY,
-        PLACEMENT,
+        BUCKET_PLACEMENT,
+        RUNG_PLACEMENT,
     }
 
     private State state;
@@ -29,7 +31,7 @@ public class IOController {
     private Gamepad previousGamepad2 = new Gamepad();
 
     public IOController(Intake intake, Outtake outtake, OpMode opMode) {
-        this.state = State.PLACEMENT; // For testing right now
+        this.state = State.IDLE; // For testing right now
         this.intake = intake;
         this.outtake = outtake;
         this.opMode = opMode;
@@ -78,17 +80,20 @@ public class IOController {
             case IDLE:
                 Idle.run(this);
                 break;
-            case PICKUP:
-                 Pickup.run(this);
-                break;
-            case HANDOFF_INITIALIZING:
-                HandoffInitializing.run(this);
-                break;
-            case HANDOFF_READY:
-                 HandoffReady.run(this);
-                break;
-            case PLACEMENT:
-                 Placement.run(this);
+//            case PICKUP:
+//                 Pickup.run(this);
+//                break;
+//            case HANDOFF_INITIALIZING:
+//                HandoffInitializing.run(this);
+//                break;
+//            case HANDOFF_READY:
+//                 HandoffReady.run(this);
+//                break;
+//            case BUCKET_PLACEMENT:
+//                 BucketPlacement.run(this);
+//                break;
+            case RUNG_PLACEMENT:
+                 RungPlacement.run(this);
                 break;
         }
     }
