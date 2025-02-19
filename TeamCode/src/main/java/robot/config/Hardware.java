@@ -14,6 +14,9 @@ public class Hardware {
     public DcMotor fR;
     public DcMotor bL;
     public DcMotor bR;
+
+    public DcMotor phantomMotor;
+
     public List<DcMotor> driveMotors;
     public DcMotor outtakeL;
     public DcMotor outtakeR;
@@ -35,6 +38,7 @@ public class Hardware {
         fL = hardwareMap.get(DcMotor.class, "fL");
         bR = hardwareMap.get(DcMotor.class, "bR");
         bL = hardwareMap.get(DcMotor.class, "bL");
+        phantomMotor = hardwareMap.get(DcMotor.class, "phantomMotor");
         driveMotors = Arrays.asList(fR, fL, bR, bL);
         outtakeL = hardwareMap.get(DcMotor.class, "outtakeL");
         outtakeR = hardwareMap.get(DcMotor.class, "outtakeR");

@@ -1,4 +1,4 @@
-package robot.pedroPathing.constants;
+package pedroPathing.constants;
 
 import com.pedropathing.localization.Localizers;
 import com.pedropathing.follower.FollowerConstants;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class FConstants {
     static {
-        FollowerConstants.localizers = Localizers.DRIVE_ENCODERS;
+        FollowerConstants.localizers = Localizers.THREE_WHEEL;
 
         FollowerConstants.leftFrontMotorName = "fL";
         FollowerConstants.leftRearMotorName = "bL";

@@ -59,9 +59,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class SensorOctoQuad extends LinearOpMode {
 
     // Identify which encoder OctoQuad inputs are connected to each odometry pod.
-    private final int ODO_LEFT  = 0; // Facing forward direction on left side of robot (Axial motion)
-    private final int ODO_RIGHT = 1; // Facing forward direction on right side or robot (Axial motion)
-    private final int ODO_PERP  = 2; // Facing perpendicular direction at the center of the robot (Lateral motion)
+    private final int ODO_LEFT  = 6; // Facing forward direction on left side of robot (Axial motion)
+    private final int ODO_RIGHT = 7; // Facing forward direction on right side or robot (Axial motion)
+    private final int ODO_PERP  = 5; // Facing perpendicular direction at the center of the robot (Lateral motion)
 
     // Declare the OctoQuad object and members to store encoder positions and velocities
     private OctoQuad    octoquad;
@@ -81,7 +81,7 @@ public class SensorOctoQuad extends LinearOpMode {
 
         // Read the Firmware Revision number from the OctoQuad and display it as telemetry.
         telemetry.addData("OctoQuad Firmware Version ", octoquad.getFirmwareVersion());
-
+        octoquad.readAllEncoderData();
         // Reverse the count-direction of any encoder that is not what you require.
         // e.g. if you push the robot forward and the left encoder counts down, then reverse it so it counts up.
         octoquad.setSingleEncoderDirection(ODO_LEFT,  OctoQuad.EncoderDirection.REVERSE);
